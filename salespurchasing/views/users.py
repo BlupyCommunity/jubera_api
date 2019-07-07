@@ -207,5 +207,23 @@ class UserUpdate(APIView):
 
 
 class UserList(generics.ListAPIView):
-    pass
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        queryset = User.objects.filter(is_active=True, is_superuser=False)\
+            .exclude(username=self.request.user.username)
+        username = self.request.GET.get('username')
+
+        if username:
+            queryset = queryset.filter(username=username)
+
+        return queryset
+
+
+
+
+
 
