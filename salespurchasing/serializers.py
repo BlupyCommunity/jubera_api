@@ -43,6 +43,7 @@ class SupplierSerializer(serializers.ModelSerializer):
     class Meta:
         model = Supplier
         fields = '__all__'
+        depth = 1
 
 
 class PurchaseSerializer(serializers.ModelSerializer):
