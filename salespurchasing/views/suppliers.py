@@ -1,8 +1,12 @@
+from django.db import transaction
 from rest_framework import authentication, permissions, generics
+from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from salespurchasing.models import Supplier
 from salespurchasing.serializers import SupplierSerializer
+from utils.exceptions import ValidateError
+from utils.models import auto_number
 
 
 class SupplierNew(APIView):
@@ -10,13 +14,35 @@ class SupplierNew(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def check_pass(self, request):
-        pass
+        data = request.data
 
+        if data.get('name') is None:
+            raise ValidateError('Nama tidak boleh kosong')
+
+        if data.get('address') is None:
+            raise ValidateError('Alamat tidak boleh kosong')
+
+        if data.get('phone') is None:
+            raise ValidateError('Nomer telepon tidak boleh kosong')
+
+    @transaction.atomic()
     def execute(self, request):
-        pass
+        data = request.data
+
+        supplier = Supplier.objects.create(
+            supplier_code=auto_number(Supplier.objects.all()),
+            name=data.get('name'),
+            address=data.get('address'),
+            phone=data.get('phone')
+        )
+
+        return supplier
 
     def post(self, request):
-        pass
+        self.check_pass(request)
+        supplier = self.execute(request)
+
+        return Response(SupplierSerializer(supplier, many=False).data)
 
 
 class SupplierList(generics.ListAPIView):
