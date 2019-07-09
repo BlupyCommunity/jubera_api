@@ -1,6 +1,6 @@
 from django.urls import path
 
-from salespurchasing.views.suppliers import SupplierNew, SupplierList
+from salespurchasing.views.suppliers import SupplierNew, SupplierList, SupplierDetail
 from salespurchasing.views.users import UserLogin, UserNew, UserUpdate, UserList, UserDetail
 
 app_name = 'api'
@@ -14,4 +14,5 @@ urlpatterns = [
 
     path('SupplierNew/', SupplierNew.as_view(), name='SupplierNew'),
     path('SupplierList/', SupplierList.as_view(), name='SupplierList'),
+    path('SupplierDetail/', SupplierDetail.as_view(), name='SupplierDetail'),
 ]

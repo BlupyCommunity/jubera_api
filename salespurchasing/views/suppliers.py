@@ -70,14 +70,24 @@ class SupplierDetail(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def check_pass(self, request):
-        pass
+        data = request.data
+
+        if data.get('id') is None:
+            raise ValidateError('ID Supplier tidak boleh kosong')
+
+        suppliers = Supplier.objects.filter(pk=data.get('id'))
+        if not suppliers:
+            raise ValidateError('Supplier tidak ditemukan')
 
     def execute(self, request):
-        pass
+        data = request.data
+        return Supplier.objects.get(pk=data.get('id'))
 
     def post(self, request):
-        pass
+        self.check_pass(request)
+        supplier = self.execute(request)
 
+        return Response(SupplierSerializer(supplier, many=False).data)
 
 class SupplierUpdate(APIView):
     authentication_classes = (authentication.TokenAuthentication,)
