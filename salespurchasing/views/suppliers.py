@@ -89,18 +89,58 @@ class SupplierDetail(APIView):
 
         return Response(SupplierSerializer(supplier, many=False).data)
 
+
 class SupplierUpdate(APIView):
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
     def check_pass(self, request):
-        pass
+        data = request.data
 
+        if data.get('id') is None:
+            raise ValidateError('ID Supplier tidak boleh kosong')
+
+        suppliers = Supplier.objects.filter(pk=data.get('id'))
+        if not suppliers:
+            raise ValidateError('Supplier tidak ditemukan')
+
+        if data.get('name') is None:
+            raise ValidateError('Nama tidak boleh kosong')
+
+        if data.get('address') is None:
+            raise ValidateError('Alamat tidak boleh kosong')
+
+        if data.get('phone') is None:
+            raise ValidateError('Nomer telepon tidak boleh kosong')
+
+    @transaction.atomic()
     def execute(self, request):
-        pass
+        data = request.data
+        supplier = Supplier.objects.get(pk=data.get('id'))
+        is_change = False
+
+        if data.get('name') != supplier.name:
+            is_change = True
+            supplier.name = data.get('name')
+
+        if data.get('address') != supplier.address:
+            is_change = True
+            supplier.address = data.get('address')
+
+        if data.get('phone') != supplier.phone:
+            is_change = True
+            supplier.phone = data.get('phone')
+
+        if is_change:
+            supplier.save()
+
+        return supplier
 
     def post(self, request):
-        pass
+        self.check_pass(request)
+        supplier = self.execute(request)
+
+        return Response(SupplierSerializer(supplier, many=False).data)
 
 
 
