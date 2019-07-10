@@ -1,6 +1,6 @@
 from django.urls import path
 
-from salespurchasing.views.products import ProductNew
+from salespurchasing.views.products import ProductNew, ProductList
 from salespurchasing.views.suppliers import SupplierNew, SupplierList, SupplierDetail, SupplierUpdate
 from salespurchasing.views.users import UserLogin, UserNew, UserUpdate, UserList, UserDetail
 
@@ -19,4 +19,5 @@ urlpatterns = [
     path('SupplierUpdate/', SupplierUpdate.as_view(), name='SupplierUpdate'),
 
     path('ProductNew/', ProductNew.as_view(), name='ProductNew'),
+    path('ProductList/', ProductList.as_view(), name='ProductList'),
 ]

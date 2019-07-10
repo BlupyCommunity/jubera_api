@@ -56,6 +56,21 @@ class ProductNew(APIView):
 class ProductList(generics.ListAPIView):
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    def get_queryset(self):
+        queryset = Product.objects.all()
+        name = self.request.GET.get('name')
+        sku = self.request.GET.get('sku')
+
+        if name:
+            queryset = queryset.filter(name__icontains=name)
+
+        if sku:
+            queryset = queryset.filter(sku=sku)
+
+        return queryset
 
 
 class ProductDetail(APIView):
