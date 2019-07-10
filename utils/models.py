@@ -2,18 +2,18 @@ from django.db import models
 from django.utils.datetime_safe import datetime
 
 
-def auto_number(queryset, length=10, prefix='PRD'):
+def auto_number(queryset, prefix='PRD', length=10):
 
     count = queryset.count() + 1
 
     if length == 10:
-        return "{}{:0>10}".format(count, prefix.upper())
+        return "{}-{:0>10}".format(prefix.upper(), count )
 
     if length == 15:
-        return "{}{:0>15}".format(count, prefix.upper())
+        return "{}-{:0>15}".format(prefix.upper(), count )
 
     if length == 20:
-        return "{}{:0>20}".format(count, prefix.upper())
+        return "{}-{:0>20}".format(prefix.upper(), count )
 
 
 class Timestamp(models.Model):

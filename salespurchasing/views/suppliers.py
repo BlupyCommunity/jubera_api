@@ -30,7 +30,7 @@ class SupplierNew(APIView):
         data = request.data
 
         supplier = Supplier.objects.create(
-            supplier_code=auto_number(Supplier.objects.all()),
+            supplier_code=auto_number(Supplier.objects.all(), prefix='SPR'),
             name=data.get('name'),
             address=data.get('address'),
             phone=data.get('phone')
