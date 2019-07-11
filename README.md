@@ -1,25 +1,9 @@
 ## Jubera API
 
-Jubera API merupakan application programming interface untuk sistem informasi pembelian, 
-penjualan dan laporan laba rugi. Target pengguna yang akan menggunakan aplikasi ini 
-adalah pengguna yang memiliki bisnis pibadi level awal dan menengah.
-
-### Spesifikasi Kebutuhan
-
-- Linux Ubuntu 18.04 (varian linux) `sangat direkomendasikan`.
-- Mac OS
-- Windows 8, 10
-- Python 3.6
-
-### Dependensi
-
-- Aplikasi Admin Jubera
-
-
+Jubera API merupakan API (application programming interface) untuk sistem informasi pembelian, 
+penjualan dan laporan laba rugi. 
 
 ### Instalasi 
-
-> Disarankan menggunakan virtualenv.
 
 Clone API Jubera lalu masuk ke direktori project:
 
@@ -30,7 +14,7 @@ $ pip install -r requirements.txt
 Lakukan migrasi:
 
 ```
-$ python manage.py makemigrations
+$ python manage.py migrate
 ```
 
 Jalankan server:
@@ -39,6 +23,35 @@ Jalankan server:
 $ python manage.py runserver
 ```
 
-API bisa digunakan. Untuk dokumentasi lengkapnya silahkan kunjungi:
+### Dokumentasi API
 
-- [Dokumentasi API Jubera](https://gitlab.com/jubera-app/jubera_api/wikis/home)
+Anda bisa membaca dokumentasi API Jubera di:
+
+[Dokumentasi API](https://github.com/blupybusiness/jubera_api/wiki)
+
+
+### Lisensi
+
+```
+MIT License
+
+Copyright (c) 2019 Blupy
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
